@@ -1,0 +1,131 @@
+/*
+ *		C . A . P .   P A R S E R
+ *
+ *		I N T E R N A L   I N C L U D E   F I L E
+ *
+ *		St‚phane Charette @ C.A.P. Services
+ *
+ *		Last modified:  St‚phane Charette, 1995 October 29
+ *
+ *****************************************************************************
+ *
+ *		Project:	BILL
+ *		Group:	parser
+ *		File:		parser\parser.hi
+ *
+ *		This file contains all of the internal definitions used with
+ *		the parser portion of the interpreter BILL.
+ */
+
+
+
+#ifndef _PARSER_H_INTERNAL
+
+	#define _PARSER_H_INTERNAL
+
+	/*
+	 *		Includes
+	 */
+		#include "..\parser\parser.h"
+		#include "..\parser\pars_ids.h"
+		#include "..\lexical\lexical.h"
+		#include "..\symtable\symtable.h"
+		#include "..\pcode\pcode_id.h"
+		#include "..\pcode\pcode.h"
+		#include <stdio.h>				// file i/o
+		#include <string.h>				// strlen, strcpy
+		#include <stdlib.h>				// exit
+		#include <stdarg.h>				// vprintf, vfprintf
+
+
+
+	/*
+	 *		Defines
+	 */
+
+		#if( _PARSER_DEBUG )
+		#define PARSER_DEBUG_FILENAME "PARSER.TXT"	// output file for parser debug
+		#define PARSER_INDENT_VALUE 3						// value by which to increment/decrement indentation
+		#endif
+
+
+
+	/*
+	 *		Types & structures
+	 */
+		#if( _SYMTABLE_DEBUG )
+		struct PARSER_DEBUG_STRUCT
+		{
+			BOOL	ScreenOutput;	// enable screen output
+			BOOL	FileOutput;		// enable file output
+			USHORT	Indent;		// indentation value for parse tree
+		};
+		typedef struct PARSER_DEBUG_STRUCT PARSER_DEBUG;
+		#endif
+
+		struct PARSER_STATES_STRUCT
+		{
+			UCHAR	Filename[PARSER_MAX_PATH_LEN+1];	// name of file to parse
+			ERR		Error;		// keeps track of errors
+		};
+		typedef struct PARSER_STATES_STRUCT PARSER_STATES;
+
+
+
+	/*
+	 *		Macros
+	 */
+	 	#define _GetNextToken										\
+			RC = GetNextToken( );									\
+			if( RC ) ParserError( RC )
+
+		#define _AcceptCurrent( tokentype, tokenerror )		\
+			if( Lex_State.TokenID != tokentype ) ParserError( tokenerror )
+
+	 	#define _AcceptNext( tokentype, tokenerror )			\
+			_GetNextToken;												\
+			_AcceptCurrent( tokentype, tokenerror )
+
+
+
+	/*
+	 *		Local (internal) variables
+	 */
+	 	PARSER_STATES	Parser_State;				// general parser state
+		#if( _SYMTABLE_DEBUG )
+		PARSER_DEBUG	Parser_Debug;  			// parser debug states
+		FILE 			*ParserDebugFilePtr;			// file pointer for debug output
+		#endif
+
+
+
+	/*
+	 *		Local (internal) prototyping
+	 */
+	 	void ParserError( ERR );					// sets error flag to specified ERR
+		void Parser_Program( void );
+		void Parser_Block( void );
+		void Parser_Constdeclaration( void );
+		void Parser_Vardeclaration( void );
+		void Parser_Statementpart( void );
+		void Parser_Statementsequence( void );
+		void Parser_Statement( void );
+		void Parser_Assignment( void );
+		void Parser_Expression( void );
+		void Parser_Term( void );
+		void Parser_Factor( void );
+		void Parser_Ifstatement( void );
+		void Parser_Whilestatement( void );
+		void Parser_Writestatement( void );
+		void Parser_Readstatement( void );
+		void Parser_Identsequence( void );
+		void Parser_Condition( void );
+		void Parser_Writelist( void );
+		#if( _SYMTABLE_DEBUG )
+		ERR ParserDebugWrite( UCHAR *text, ... );	// write debug information to screen/file
+		#endif
+
+
+
+#endif
+

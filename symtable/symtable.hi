@@ -1,0 +1,98 @@
+/*
+ *		C . A . P .   S Y M B O L   T A B L E
+ *
+ *		I N T E R N A L   I N C L U D E   F I L E
+ *
+ *		St‚phane Charette @ C.A.P. Services
+ *
+ *		Last modified:  St‚phane Charette, 1995 October 29
+ *
+ *****************************************************************************
+ *
+ *		Project:	BILL
+ *		Group:	symbol table
+ *		File:		symtable\symtable.hi
+ *
+ *		This file contains all of the internal definitions used with
+ *		the symbol table portion of the interpreter BILL.
+ */
+
+
+
+#ifndef _SYMTABLE_H_INTERNAL
+
+	#define _SYMTABLE_H_INTERNAL
+
+	/*
+	 *		Includes
+	 */
+		#include "..\symtable\symtable.h"
+		#include <stdio.h>
+		#include <stdlib.h>		// exit
+		#include <string.h>
+		#include <stdarg.h>		// vprintf, vfprintf
+
+
+
+	/*
+	 *		Defines
+	 */
+
+		#ifdef _SYMTABLE_DEBUG
+		#define SYMTABLE_DEBUG_FILENAME "SYMTABLE.TXT"	// output file for symbol table
+		#endif
+
+
+
+	/*
+	 *		Types & structures
+	 */
+		#ifdef _SYMTABLE_DEBUG
+		struct SYMTABLE_DEBUG_STRUCT
+		{
+			BOOL	ScreenOutput;	// enable screen output
+			BOOL	FileOutput;		// enable file output
+		};
+		typedef struct SYMTABLE_DEBUG_STRUCT SYMTABLE_DEBUG;
+		#endif
+
+		struct SYMTABLE_ENTRY_STRUCT
+		{
+			BOOL	Used;				// determines if this table entry is being used
+			BOOL	Constant;		// is this table entry a constant?
+			UCHAR	Name[ SYMTABLE_MAX_VAR_LEN + 1 ];	// name of the variable
+		};
+		typedef struct SYMTABLE_ENTRY_STRUCT SYMTABLE_ENTRY;
+
+
+
+	/*
+	 *		Macros
+	 */
+
+
+
+	/*
+	 *		Local (internal) variables
+	 */
+	 	SYMTABLE_ENTRY	Table[ SYMTABLE_MAX_ENTRY ];	// table => array of table entries
+		ERR SymTableInternalError;							// keeps track of error codes
+		#ifdef _SYMTABLE_DEBUG
+		SYMTABLE_DEBUG	Symbol_Table_Debug;				// lexical debug states
+		FILE 			*SymTableDebugFilePtr;				// file pointer for debug output
+		#endif
+
+
+
+	/*
+	 *		Local (internal) prototyping
+	 */
+	 	void SymTableError( ERR );							// sets error flag to specified ERR
+		#ifdef _SYMTABLE_DEBUG
+		ERR SymTableDebugWrite( UCHAR *text, ... );	// write debug information to screen/file
+		#endif
+
+
+
+#endif
+

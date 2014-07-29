@@ -1,0 +1,2 @@
+Note:  the "lwp" file is an IBM Works document (IBM WORKS is on the Bonus Pack
+       for OS/2 Warp)

@@ -1,0 +1,13 @@
+bill.ico Icon for B.I.L.L.
+exitcode Routines to take care of error return
+global Global definitions
+lexical Lexical analyzer
+parser Parser
+stackman PCode interpreter
+symtable Symbol table
+TESTFILE.PAS test file with basic PASCAL commands
+pcode PCode generator
+document documentation
+bill B.I.L.L. - main()
+bill.exe B.I.L.L. - OS/2 executable
+FILE_ID.DIZ "Description in Zip" file...

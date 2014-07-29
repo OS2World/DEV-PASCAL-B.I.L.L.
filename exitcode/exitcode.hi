@@ -1,0 +1,112 @@
+/*
+ *		C . A . P .   E R R O R   D I S P L A Y
+ *
+ *		I N T E R N A L   I N C L U D E   F I L E
+ *
+ *		Stephane Charette @ C.A.P. Services
+ *
+ *		Last modified:  St‚phane Charette, 1995 October 29
+ *
+ *****************************************************************************
+ *
+ *		Project:	BILL
+ *		Group:	error display
+ *		File:		errorcode\errorcode.hi
+ *
+ *		This file contains all of the possible error messages returned by the
+ *		BILL interpreter.
+ */
+
+
+
+#ifndef _EXITCODE_H_INTERNAL
+
+	#define _EXITCODE_H_INTERNAL
+
+	/*
+	 *		Includes
+	 */
+		#include "..\\exitcode\\exitcode.h"
+		#include "..\\lexical\\lexical.h"
+		#include "..\\symtable\\symtable.h"
+		#include "..\\parser\\parser.h"
+		#include <stdlib.h>
+		#include <stdio.h>
+
+
+
+	/*
+	 *		Defines
+	 */
+		const UCHAR _ExitCodeGen[2][81] = {
+			"No error detected.",													// 0000
+			"General error detected!" };											// 0001
+
+		const UCHAR _ExitCodeLex[][81] = {
+			"Lexical analyzer detected a general error!",					// 1000
+			"Lexical analyzer cannot accept file path - too long!",		// 1001
+			"Lexical analyzer cannot open file.",								// 1002
+			"Lexical analyzer cannot read file.",								// 1003
+			"Lexical analyzer cannot close the file.",						// 1004
+			"Lexical analyzer reached end-of-file.",							// 1005
+			"Lexical analyzer cannot read token - too long!",				// 1006
+			"Lexical analyzer end comment without opening comment.",		// 1007
+			"Lexical analyzer unexpectedly found the end-of-file.",		// 1008
+			"Lexical analyzer found an unrecognizable character.",		// 1009
+			"Lexical analyzer cannot access debug file." };					// 1010
+
+		const UCHAR _ExitCodeSymTable[][81] = {
+			"Symbol table detected a general error!",							// 2000
+			"Symbol table cannot access debug file.",							// 2001
+			"Symbol table is completely allocated.",							// 2002
+			"Symbol table detected referenced undefined identifier." };	// 2003
+
+		const UCHAR _ExitCodeParser[][81] = {
+			"Parser detected a general error!",									// 3000
+			"Parser cannot accept file path - too long!",					// 3001
+			"Parser cannot access debug file.",									// 3002
+			"Parser expected \"program\" keyword.",							// 3003
+			"Parser expected identifier.",										// 3004
+			"Parser expected semicolon.",											// 3005
+			"Parser expected period.",												// 3006
+			"Parser expected variable/value.",									// 3007
+			"Parser detected redefinition.",										// 3008
+			"Parser expected \"=\" symbol.",										// 3009
+			"Parser expected \"begin\" keyword.",								// 3010
+			"Parser expected a \";\" or the \"end\" keyword.",				// 3011
+			"Parser expected \":=\" symbol.",									// 3012
+			"Parser expected a statement.",										// 3013
+			"Parser expected \"(\".",												// 3014
+			"Parser expected \")\".",												// 3015
+			"Parser expected \"then\" keyword.",								// 3016
+			"Parser expected \"do\" keyword.",									// 3017
+			"Parser detected a constant re-assignment.",						// 3018
+			"Parser expected a relational operator." };						// 3019
+
+
+	/*
+	 *		Types & structures
+	 */
+
+
+
+	/*
+	 *		Macros
+	 */
+
+
+
+	/*
+	 *		Local (internal) variables
+	 */
+
+
+
+	/*
+	 *		Local (internal) prototyping
+	 */
+
+
+
+#endif
+

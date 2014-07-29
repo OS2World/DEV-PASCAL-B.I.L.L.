@@ -1,0 +1,85 @@
+; Names the application and the type of environment in
+; which it will run.  Apptype must be WINDOWAPI or
+; WINDOWCOMPAT or NOTWINDOWCOMPAT
+; NAME	APPNAME APPTYPE
+NAME	BILL WINDOWCOMPAT
+
+; Base determines some type of addressing alignment
+;BASE=<64K multiple>
+;BASE=64
+
+; Code assigns attributes to the code segments.  The
+; second value in each pair is the default.
+;CODE	PRELOAD or LOADONCALL
+;		EXECUTEONLY or EXECUTEREAD
+;		IOPL or NOIOPL
+;		CONFORMING or NONCONFORMING
+CODE	LOADONCALL EXECUTEREAD NOIOPL NONCONFORMING
+
+; Data asigns attributes to the data segments.  The
+; second value in each pair is the default.
+; DATA	PRELOAD or LOADONCALL
+;		READONLY or READWRITE
+;		NONE or SINGLE or MULTIPLE
+;		IOPL or NOIOPL
+;		SHARED or NONSHARED
+DATA	LOADONCALL READWRITE MULTIPLE NOIOPL NONSHARED
+
+; Description imbeds text string into the linked file.
+; DESCRIPTION 'text'
+DESCRIPTION 'B.I.L.L. - Pascal interpreter'
+
+; Exetype sets the applications loader bits for the
+; specified operating system.
+; EXETYPE	OS2 or WINDOWS or UNKNOWN
+EXETYPE	OS2
+
+; Export is used to give external applications access
+; to internal functions.  Mostly used by DLLs.
+; EXPORT
+;	ENTRYNAME = INTERNALNAME @ORD RESIDENTNAME PWORD
+
+; Import is used to resolve linking to a DLL.
+; IMPORT
+;	INTERNALNAME=MODULENAME.ENTRY
+
+; Heapsize is used to set the size of the application's
+; heap.  If MAXVAL is used, then the heap will be created
+; in such a way that DGROUP will be exactly 64K.
+; HEAPSIZE	BYTES or MAXVAL
+;HEAPSIZE MAXVAL
+
+; Libarary specifies that the linked file is to be a DLL
+; and not an executable.
+; LIBRARY	LIBRARYNAME INITIALIZATION TERMINATION
+
+; Old is used when building DLLs.
+; OLD	FILENAME
+
+; Physical device names the application as a device driver.
+; PHYSICAL DEVICE	DEVICENAME
+
+; Protmode specifies that the application can only run in
+; protected mode and not in real or dual mode.
+; PROTMODE
+
+; Segments is used to set specific attributes to different
+; multiple segments within the application.
+; SEGMENTS
+;	SEGMENTNAME CLASS CLASSNAME ATTRIBUTES
+
+; Stacksize sets the size of the application's stack in bytes.
+; STACKSIZE BYTES
+STACKSIZE 8192
+
+; Stub adds a DOS file to be run if the application is run
+; from DOS mode.
+; STUB	FILENAME
+STUB	'\c_dev\cap\dos\stopit.exe'
+
+; Virtual device identifies this application as a virtual
+; device driver.
+; VIRTUAL DEVICE	DEVICENAME
+
+; end of .DEF file
+

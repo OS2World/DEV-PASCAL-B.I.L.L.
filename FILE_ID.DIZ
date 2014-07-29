@@ -1,0 +1,6 @@
+B.I.L.L.:  a simple Pascal-like
+interpreter  broken  down  into
+small  easy  pieces (tokenizer,
+parser,  symbol  table, etc...)
+-------------------------------
+[Stephane Charette, 95Oct29]

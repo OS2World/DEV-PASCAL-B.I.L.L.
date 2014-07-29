@@ -1,0 +1,74 @@
+/*
+ *		C . A . P .   P C O D E   G E N E R A T O R
+ *
+ *		I N T E R N A L   I N C L U D E   F I L E
+ *
+ *		St‚phane Charette @ C.A.P. Services
+ *
+ *		Last modified:  St‚phane Charette, 1995 October 29
+ *
+ *****************************************************************************
+ *
+ *		Project:	BILL
+ *		Group:	pcode
+ *		File:		pcode\pcode.hi
+ *
+ *		This file contains all of the internal definitions used with
+ *		the pcode generator of the interpreter BILL.
+ */
+
+
+
+#ifndef _PCODE_H_INTERNAL
+
+	#define _PCODE_H_INTERNAL
+
+	/*
+	 *		Includes
+	 */
+		#include <stdio.h>				// file i/o
+		#include <stdlib.h>				// exit
+		#include "..\pcode\pcode.h"
+
+
+
+	/*
+	 *		Defines
+	 */
+
+
+
+	/*
+	 *		Types & structures
+	 */
+		struct PCODE_STATES_STRUCT
+		{
+			USHORT	CurrentIndex;		// current pcode index into generated code buffer
+		};
+		typedef struct PCODE_STATES_STRUCT PCODE_STATES;
+
+
+
+	/*
+	 *		Macros
+	 */
+
+
+
+	/*
+	 *		Local (internal) variables
+	 */
+		SHORT	PCodeBuffer[PCODE_MAX_LEN];	// buffer of generated pcode
+		PCODE_STATES	PCode_State;
+
+
+
+	/*
+	 *		Local (internal) prototyping
+	 */
+		void PCodeError( void );
+
+
+
+#endif
+

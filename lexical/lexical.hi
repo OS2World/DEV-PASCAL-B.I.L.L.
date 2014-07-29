@@ -1,0 +1,111 @@
+/*
+ *		C . A . P .   L E X I C A L   A N A L Y Z E R
+ *
+ *		I N T E R N A L   I N C L U D E   F I L E
+ *
+ *		St‚phane Charette @ C.A.P. Services
+ *
+ *		Last modified:  St‚phane Charette, 1995 October 29
+ *
+ *****************************************************************************
+ *
+ *		Project:	BILL
+ *		Group:	lexical analyzer
+ *		File:		lexical\lexical.hi
+ *
+ *		This file contains all of the internal definitions used with
+ *		the lexical portion of the interpreter BILL.
+ */
+
+
+
+#ifndef _LEXICAL_H_INTERNAL
+
+	#define _LEXICAL_H_INTERNAL
+
+	/*
+	 *		Includes
+	 */
+		#include "..\lexical\lexical.h"
+		#include "..\symtable\symtable.h"
+		#include <stdio.h>
+		#include <stdlib.h>
+		#include <ctype.h>				// isspace
+		#include <string.h>				// strchr, tolower
+		#include <stdarg.h>				// vprintf, vfprintf
+
+
+
+	/*
+	 *		Defines
+	 */
+
+		#define LEX_MAX_BUFFER_LEN	3		// must be minimum of 3
+		#define SET_OF_TOKEN_DELIMITERS " \'\r\n\t{}:;,.+-*/<>=()"	// valid token delimiters
+		#define SET_OF_ILLEGAL_CHARS "!@#$%^&~[]\\/|?\""				// invalid characters
+		#if( _LEX_DEBUG )
+		#define LEX_DEBUG_SOURCE_FILENAME "LEX_SRC.TXT"		// output file for lex debug (source listing)
+		#define LEX_DEBUG_TOKEN_FILENAME "LEX_TOK.TXT"		// output file for lex debug (tokenized listing)
+		#define LEX_DEBUG_MIX_FILENAME "LEX_MIX.TXT"			// output file for lex debug (source + tokenized listing)
+		#endif
+
+
+
+	/*
+	 *		Types & structures
+	 */
+		#if( _LEX_DEBUG )
+		struct LEXICAL_DEBUG_STRUCT
+		{
+			BOOL	ScreenOutput;		// enable screen output
+			BOOL	SourceOutput;		// output each character to the source output file
+			BOOL	TokenOutput;		// output each token after recogniztion to the token output file
+			BOOL	MixOutput;			// mix source and token output to the mix output file
+		};
+		typedef struct LEXICAL_DEBUG_STRUCT LEXICAL_DEBUG;
+		#endif
+
+
+
+	/*
+	 *		Macros
+	 */
+
+
+
+	/*
+	 *		Local (internal) variables
+	 */
+		LEXICAL_STATE	Lex_State;							// global lex states defined in "lexical.h"
+		FILE			*FilePtr;								// handle to source file
+		UCHAR			Buffer[ LEX_MAX_BUFFER_LEN ];		// file buffer
+		/*********************************************************
+		 *		Buffer will be used as follows:							*
+		 *		Buffer[ 0 ] will be the previously read character	*
+		 *		Buffer[ 1 ] will be the current character				*
+		 *		Buffer[ 2+ ] will be the look-ahead						*
+		 *********************************************************/
+		UCHAR			FileName[ LEX_MAX_PATH_LEN+1 ];	// path of source
+		#if( _LEX_DEBUG )
+		LEXICAL_DEBUG	Lex_Debug;							// lexical debug states
+		FILE 			*LexDebugSourceFilePtr;				// file pointer for debug output (source)
+		FILE			*LexDebugTokenFilePtr;				// file pointer for debug output (token)
+		FILE			*LexDebugMixFilePtr;					// file pointer for debug output (source+token)
+		#endif
+
+
+
+	/*
+	 *		Local (internal) prototyping
+	 */
+	 	void LexError( ERR );				// sets error flag to specified ERR
+		ERR GetNextCharacter( void );		// reads a new character into Buffer
+		ERR SkipWhiteSpace( void );		// skips consecutive white characters in Buffer
+		#if( _LEX_DEBUG )
+		ERR LexDebugWrite( UCHAR *text, ... );	// write debug information to screen/files
+		#endif
+
+
+
+#endif
+
